@@ -1,0 +1,15 @@
+mkdir XX
+cd XX
+git init
+# 连接GitHub上的仓库
+git remote add origin git@github.com:StephenWayen/LibMS.git
+git remote set-url origin git@github.com:StephenWayen/LibMS.git
+
+#查看当前仓库分支
+git remote show origin
+
+#克隆项目至本地
+git clone git@github.com:StephenWayen/LibMS.git
+cd LibMS
+
+
