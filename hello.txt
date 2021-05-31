@@ -1,2 +1,2 @@
-I say Hello World！
+I say Hello
 
