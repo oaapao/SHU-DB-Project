@@ -1,0 +1,341 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <title>{% block title %}未命名的页面{% endblock %}</title>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+
+    <!-- Favicon icon -->
+    <link rel="icon" href="{%  static 'images/favicon.ico' %}" type="image/x-icon">
+
+    {% block css %}
+        <link rel="stylesheet" href="{%  static 'pages/waves/css/waves.min.css' %}" type="text/css" media="all">
+    <!-- Required Fremwork -->
+    <link rel="stylesheet" type="text/css" href="{%  static 'css/bootstrap/css/bootstrap.min.css' %}">
+    <!-- waves.css -->
+    <link rel="stylesheet" href="{%  static 'pages/waves/css/waves.min.css' %}" type="text/css" media="all">
+    <!-- themify icon -->
+    <link rel="stylesheet" type="text/css" href="{%  static 'icon/themify-icons/themify-icons.css' %}">
+    <!-- font-awesome-n -->
+    <link rel="stylesheet" type="text/css" href="{%  static 'css/font-awesome-n.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{%  static 'css/font-awesome.min.css' %}">
+    <!-- scrollbar.css -->
+    <link rel="stylesheet" type="text/css" href="{%  static 'css/jquery.mCustomScrollbar.css' %}">
+    <!-- Style.css -->
+    <link rel="stylesheet" type="text/css" href="{%  static 'css/style.css' %}">
+        <!-- Notification.css -->
+    <link rel="stylesheet" type="text/css" href="{% static 'pages/notification/notification.css' %}">
+    <!-- Animate.css -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/animate.css/css/animate.css' %}">
+        <!-- morris chart -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/morris.js/css/morris.css' %}">
+    {% endblock %}
+</head>
+
+<body>
+    <!-- Pre-loader start -->
+    <div class="theme-loader">
+        <div class="loader-track">
+            <div class="preloader-wrapper">
+                <div class="spinner-layer spinner-blue">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+                <div class="spinner-layer spinner-red">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+
+                <div class="spinner-layer spinner-yellow">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+
+                <div class="spinner-layer spinner-green">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Pre-loader end -->
+    <div id="pcoded" class="pcoded">
+        <div class="pcoded-overlay-box"></div>
+        <div class="pcoded-container navbar-wrapper">
+            <nav class="navbar header-navbar pcoded-header">
+                <div class="navbar-wrapper">
+                    <div class="navbar-logo">
+                        <a class="mobile-menu waves-effect waves-light" id="mobile-collapse" href="#!">
+                            <i class="ti-menu"></i>
+                        </a>
+                        <div class="mobile-search waves-effect waves-light">
+                            <div class="header-search">
+                                <div class="main-search morphsearch-search">
+                                    <div class="input-group">
+                                        <span class="input-group-prepend search-close"><i class="ti-close input-group-text"></i></span>
+                                        <input type="text" class="form-control" placeholder="Enter Keyword">
+                                        <span class="input-group-append search-btn"><i class="ti-search input-group-text"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="{% url 'index' %}">
+                            <h5 style="color: white"><small>上海大学图书借阅系统</small></h5>
+                        </a>
+                        <a class="mobile-options waves-effect waves-light">
+                            <i class="ti-more"></i>
+                        </a>
+                    </div>
+                    <div class="navbar-container container-fluid">
+                        <ul class="nav-left">
+                            <li>
+                                <div class="sidebar_toggle"><a href="javascript:void(0)"><i class="ti-menu"></i></a></div>
+                            </li>
+                            <li>
+                                <a href="#!" onclick="javascript:toggleFullScreen()" class="waves-effect waves-light">
+                                    <i class="ti-fullscreen"></i>
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="nav-right">
+                            <li class="user-profile header-notification">
+                                <a href="#!" class="waves-effect waves-light">
+                                    <img src="{%  static 'images/avatar-4.jpg' %}" class="img-radius" alt="User-Profile-Image">
+                                    <span>{{  request.session.name }}</span>
+                                    <i class="ti-angle-down"></i>
+                                </a>
+                                <ul class="show-notification profile-notification">
+
+                                    <li class="waves-effect waves-light">
+                                        <a href="{%  url 'profile' %}">
+                                            <i class="ti-user"></i> 个人中心
+                                        </a>
+                                    </li>
+                                    <li class="waves-effect waves-light">
+                                        <a href="#">
+                                            <i class="ti-settings"></i> 设置
+                                        </a>
+                                    </li>
+                                    <li class="waves-effect waves-light">
+                                        <a href="{% url 'logout' %}">
+                                            <i class="ti-layout-sidebar-left"></i> 退出登录
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="pcoded-main-container">
+                <div class="pcoded-wrapper">
+                    <nav class="pcoded-navbar">
+                        <div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
+                        <div class="pcoded-inner-navbar main-menu">
+                            <div class="">
+                                <div class="main-menu-header">
+                                    <img class="img-80 img-radius" src="{%  static 'images/avatar-4.jpg' %}" alt="User-Profile-Image">
+                                    <div class="user-details">
+                                        <span id="more-details">{{  request.session.name }}</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="p-15 p-b-0">
+                                <form class="form-material" method="get" action="{% url 'getKeyword' %}">
+                                    <div class="form-group form-primary" >
+                                        <input type="text" name="key" class="form-control">
+                                        <span class="form-bar"></span>
+                                        <label class="float-label"><i class="fa fa-search m-r-10"></i>搜索图书</label>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="pcoded-navigation-label">快捷导航</div>
+                            <ul class="pcoded-item pcoded-left-item">
+                                <li class="" id="a1">
+                                    <a href="{% url 'index' %}" class="waves-effect waves-dark">
+                                        <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                                        <span class="pcoded-mtext">总览</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
+                                <li class="" id="a2">
+                                    <a href="{% url 'collections' %}" class="waves-effect waves-dark">
+                                        <span class="pcoded-micon"><i class="ti-star"></i><b>D</b></span>
+                                        <span class="pcoded-mtext">我的收藏</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
+                            </ul>
+
+                            <ul class="pcoded-item pcoded-left-item">
+                                <li class="" id="b1">
+                                    <a href="#" class="waves-effect waves-dark" style="pointer-events: none;">
+                                        <span class="pcoded-micon"><i class="ti-receipt"></i><b>B</b></span>
+                                        <span class="pcoded-mtext">查询书籍</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
+                            </ul>
+
+                            <ul class="pcoded-item pcoded-left-item">
+                                <li class="pcoded-hasmenu" id="c">
+                                    <a href="javascript:void(0)" class="waves-effect waves-dark">
+                                        <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i><b>BC</b></span>
+                                        <span class="pcoded-mtext">借阅图书</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                    <ul class="pcoded-submenu">
+                                        <li class=" " id="c1">
+                                            <a href="{% url 'checkIn' %}" class="waves-effect waves-dark">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext">借书</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li class=" " id="c2">
+                                            <a href="{% url 'checkOut' %}" class="waves-effect waves-dark">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext">还书</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li class="" id="c3">
+                                            <a href="{% url 'reserve' %}" class="waves-effect waves-dark">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext">预约</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                             <ul class="pcoded-item pcoded-left-item">
+                                <li class="pcoded-hasmenu" id="d">
+                                    <a href="javascript:void(0)" class="waves-effect waves-dark">
+                                        <span class="pcoded-micon"><i class="ti-layout-grid2"></i><b>BC</b></span>
+                                        <span class="pcoded-mtext">借阅记录</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                    <ul class="pcoded-submenu">
+                                        <li class=" " id="d1">
+                                            <a href="{% url 'borrowList' %}" class="waves-effect waves-dark">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext">正在借阅</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li class=" " id="d2">
+                                            <a href="{% url 'overdueList' %}" class="waves-effect waves-dark">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext">到期书目</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li class="" id="d3">
+                                            <a href="{% url 'reserveList' %}" class="waves-effect waves-dark">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext">预约书籍</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+
+
+                        </div>
+                    </nav>
+                    <div class="pcoded-content">
+                        <!-- Page-header start -->
+                        <div class="page-header">
+                            <div class="page-block">
+                                {% block header %}
+                                <div class="row align-items-center">
+                                    <div class="col-md-8">
+                                        <div class="page-header-title">
+                                            <h5 class="m-b-10">Dashboard</h5>
+                                            <p class="m-b-0">Welcome to Material Able</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <ul class="breadcrumb">
+                                            <li class="breadcrumb-item">
+                                                <a href="index.html"> <i class="fa fa-home"></i> </a>
+                                            </li>
+                                            <li class="breadcrumb-item"><a href="#!">Dashboard</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                {% endblock %}
+                            </div>
+                        </div>
+                        <!-- Page-header end -->
+                        <div class="pcoded-inner-content">
+                            <!-- Main-body start -->
+                            <div class="main-body">
+                                {% block content %}
+                                {% endblock %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% block js %}
+        <!-- Required Jquery -->
+    <script type="text/javascript" src="{%  static 'js/jquery/jquery.min.js' %} "></script>
+    <script type="text/javascript" src="{%  static 'js/jquery-ui/jquery-ui.min.js' %} "></script>
+    <script type="text/javascript" src="{%  static 'js/popper.js/popper.min.js' %}"></script>
+    <script type="text/javascript" src="{%  static 'js/bootstrap/js/bootstrap.min.js' %} "></script>
+    <!-- waves js -->
+    <script src="{%  static 'pages/waves/js/waves.min.js' %}"></script>
+    <!-- jquery slimscroll js -->
+    <script type="text/javascript" src="{%  static 'js/jquery-slimscroll/jquery.slimscroll.js' %}"></script>
+    <!-- slimscroll js -->
+    <script src="{%  static 'js/jquery.mCustomScrollbar.concat.min.js' %} "></script>
+    <!-- menu js -->
+    <script src="{%  static 'js/pcoded.min.js' %}"></script>
+    <script src="{%  static 'js/vertical/vertical-layout.min.js' %} "></script>
+    <script type="text/javascript" src="{%  static 'js/script.js' %} "></script>
+
+    {% endblock %}
+
+</body>
+
+</html>

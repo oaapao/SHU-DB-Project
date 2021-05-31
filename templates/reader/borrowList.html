@@ -1,0 +1,109 @@
+{% extends 'basic_page.html' %}
+
+{% block title %}正在借阅{% endblock %}
+{% block header %}
+     <script>
+      document.getElementById('d').classList.add('active');
+    document.getElementById('d').classList.add('pcoded-trigger');
+     document.getElementById('d1').classList.add('active');
+     </script>
+
+
+
+    <div class="row align-items-center">
+        <div class="col-md-8">
+            <div class="page-header-title">
+                <h5 class="m-b-10">正在借阅</h5>
+                <p class="m-b-0">查看当前已借阅的书目</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{% url 'index' %}"> <i class="fa fa-home"></i> </a>
+                </li>
+                <li class="breadcrumb-item"><a href="{% url 'borrowList' %}">正在借阅</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    {% endblock %}
+
+{% block content %}
+
+
+     <div class="page-wrapper">
+        <!-- Page-body start -->
+        <div class="page-body">
+
+            <!-- Inverse table card end -->
+            <!-- Hover table card start -->
+            <div class="card" style="min-height: 500px">
+                <div class="card-header">
+                    <h5>正在借阅书目</h5>
+                    <span>共{{ book_list|length }}本图书</span>
+                    <div class="card-header-right">
+                        <ul class="list-unstyled card-option">
+                            <li><i class="fa fa fa-wrench open-card-option"></i></li>
+                            <li><i class="fa fa-window-maximize full-card"></i></li>
+                            <li><i class="fa fa-minus minimize-card"></i></li>
+                            <li><i class="fa fa-refresh reload-card"></i></li>
+                            <li><i class="fa fa-trash close-card"></i></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-block table-border-style" style="min-height: 400px">
+                    <div class="table-responsive" style="min-height: 300px">
+                        <table class="table table-hover" style="text-align: center;align-content: center;align-items: center;vertical-align:middle;">
+                            <thead>
+                                <tr>
+                                    <th><span>序号</span></th>
+                                    <th>ISBN</th>
+                                    <th>书名</th>
+                                    <th>作者</th>
+                                    <th>出版社</th>
+                                    <th>图书号</th>
+                                    <th> &nbsp;</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <form class="form-material"  method="POST"  action="" >
+                            {% csrf_token %}
+                            {% for iter in book_list %}
+                                <tr>
+                                    <th scope="row">{{ forloop.counter }}</th>
+                                    <td>{{ iter.book.isbn.id }}</td>
+                                    <td>{{ iter.book.isbn.title }}</td>
+                                    <td>{{ iter.book.isbn.author }}</td>
+                                    <td>{{ iter.book.isbn.publisher }}</td>
+                                    <td>{{ iter.book.id }}</td>
+                                    <td>
+                                         <div class="dropdown-primary dropdown open" >
+                                            <button class="btn btn-primary btn-sm dropdown-toggle waves-effect waves-light " type="button" id="dropdown-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">操作</button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdown-2" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+                                                <a class="dropdown-item waves-light waves-effect" href="{% url 'bookDetail' iter.book.isbn.id %}">查看详情</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item waves-light waves-effect " href="{% url 'goCheckOut' iter.id %}">归还</a>
+                                                <div class="dropdown-divider"></div>
+                                                 <a class="dropdown-item waves-light waves-effect" href="{% url 'collections' iter.book.isbn.id %}">收藏</a>
+
+                                            </div>
+                                         </div>
+                                    </td>
+                                    <td><input type="checkbox" value="{{ iter.id }}"  name="list"  ></td>
+                                </tr>
+                            {% endfor %}
+                            <div class="form-group form-default form-label">
+                                <input type="submit" value="一键还书" class="btn btn-md btn-primary">
+                            </div>
+                            </form>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- Page-body end -->
+    </div>
+{% endblock %}

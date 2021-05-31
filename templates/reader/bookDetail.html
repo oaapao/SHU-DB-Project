@@ -1,0 +1,158 @@
+
+{% extends 'basic_page.html' %}
+{% load static %}
+{% block title %}图书详情{% endblock %}
+
+{% block header %}
+     <script>
+     document.getElementById('a2').classList.add('active');
+     </script>
+
+
+
+    <div class="row align-items-center">
+        <div class="col-md-8">
+            <div class="page-header-title">
+                <h5 class="m-b-10">图书详情</h5>
+                <p class="m-b-0">查看图书详情</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{% url 'index' %}"> <i class="fa fa-home"></i> </a>
+                </li>
+                <li class="breadcrumb-item"><a href="{% url 'bookDetail' book.id %}">图书详情</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    {% endblock %}
+
+
+
+{% block content %}
+    <div class="pcoded-inner-content">
+                            <!-- Main-body start -->
+                            <div class="main-body">
+                                <div class="page-wrapper">
+                                    <!-- Page-body start -->
+                                    <div class="page-body button-page">
+     <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <div class="card-header-left">
+                                                            <h3>《{{ book.title }}》&nbsp; <small>{{ book.author }}著</small></h3>
+                                                        </div>
+                                                        <div class="card-header-right">
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-block">
+                                                          {% if book.cover %}
+                                <img src="{{ book.cover.url }}"  alt="Book-Cover" style="width:100%;height: 100%;">
+                                        {% else %}
+                                    <img src="{%  static 'images/1.jpg' %}"  alt="Book-Cover" style="width: 100%;height: 100%;">
+
+                                    {% endif %}
+                                                        <hr>
+                                                         </div>
+                                                </div>
+                                            </div>
+                                            <!-- Border button -->
+                                            <div class="col-sm-6 ">
+                                                 <div class="card">
+                                                    <div class="card-header">
+                                                        <h5>基本信息</h5>
+                                                         </div>
+                                                    <div class="card-block">
+                                                        <form>
+
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label">ISBN编号</label>
+                                                                <div class="col-sm-10">
+                                                                    <input type="text" class="form-control" placeholder="{{ book.id}}" readonly>
+                                                                </div>
+                                                            </div>
+                                                             <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label">图书名</label>
+                                                                <div class="col-sm-10">
+                                                                    <input type="text" class="form-control" placeholder="{{ book.title}}" readonly>
+                                                                </div>
+                                                            </div>
+                                                             <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label">作者</label>
+                                                                <div class="col-sm-10">
+                                                                    <input type="text" class="form-control" placeholder="{{ book.author }}" readonly>
+                                                                </div>
+                                                            </div>
+                                                             <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label">出版社</label>
+                                                                <div class="col-sm-10">
+                                                                    <input type="text" class="form-control" placeholder="{{ book.publisher}}" readonly>
+                                                                </div>
+                                                            </div>
+                                                             <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label">出版日期</label>
+                                                                <div class="col-sm-10">
+                                                                    <input type="text" class="form-control" placeholder="{{ book.pdate | date}}" readonly>
+                                                                </div>
+                                                            </div>
+
+                                                        </form>
+
+
+                                                    </div>
+                                                </div>
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h5>馆藏情况</h5>
+                                                         </div>
+                                                    <div class="card-block">
+                                                        <form>
+
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label">总数量</label>
+                                                                <div class="col-sm-10">
+                                                                    <input type="text" class="form-control" placeholder="{{ book.get_total_num }}本" readonly>
+                                                                </div>
+                                                            </div>
+                                                             <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label">可借数量</label>
+                                                                <div class="col-sm-10">
+                                                                    <input type="text" class="form-control" placeholder="{{ book.get_rest_num }}本" readonly>
+                                                                </div>
+                                                            </div>
+                                                             <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label">阅览室数量</label>
+                                                                <div class="col-sm-10">
+                                                                    <input type="text" class="form-control" placeholder="{{ book.get_readonly_num }}本" readonly>
+                                                                </div>
+                                                            </div>
+                                                            <hr>
+                                                            <div class="card-block" align="right">
+                                                        <!-- button Default -->
+                                                        <a class="btn btn-outline-primary waves-effect waves-light" href="{% url 'inCart' book.id %}">加入书单</a>
+                                                        <a class="btn btn-primary waves-effect waves-light" href="{% url 'collections' book.id %}">收藏</a>
+                                                                {% if book.get_rest_num %}
+                                                                    <a class="btn btn-success waves-effect waves-light" href="{% url 'goCheckIn' book.id %}">借阅</a>
+                                                                {% else %}
+                                                                    <a class="btn btn-success waves-effect waves-light" href="{% url 'goReserve' book.id %}">预约</a>
+                                                                {% endif %}
+
+
+                                                    </div>
+
+
+                                                        </form>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+{% endblock %}

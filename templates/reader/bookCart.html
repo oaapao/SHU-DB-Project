@@ -1,0 +1,145 @@
+{% extends 'basic_page.html' %}
+
+{% block title %}我的书单{% endblock %}
+{% block header %}
+     <script>
+
+     document.getElementById('a3').classList.add('active');
+     </script>
+
+
+
+    <div class="row align-items-center">
+        <div class="col-md-8">
+            <div class="page-header-title">
+                <h5 class="m-b-10">我的书单</h5>
+                <p class="m-b-0">查看书单信息</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{% url 'index' %}"> <i class="fa fa-home"></i> </a>
+                </li>
+                <li class="breadcrumb-item"><a href="{% url 'bookCart' %}">查看我的书单</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    {% endblock %}
+
+{% block content %}
+
+    <style type="text/css">
+    input[type="checkbox"] + label {
+        cursor: pointer;
+        font-size: 1em;
+    }
+    [id^="checkbox-"] + label {
+        background-color: #ffffff;
+        border: 1px solid #666666;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
+        padding: 9px;
+        border-radius: 3px;
+        display: inline-block;
+        vertical-align: middle;
+
+    }
+    [id^="checkbox-"] + label:active {
+        box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1);
+    }
+    [id="checkbox-1"]:checked + label {
+        background-color: #F47164;
+        border: 1px solid #F47164;
+    }
+    [id="checkbox-2"]:checked + label {
+        {#background-color: #84CBC5;#}
+        background-color: dodgerblue;
+        border: 1px solid #84CBC5;
+    }
+    [id="checkbox-3"]:checked + label {
+        background-color: #F8D25D;
+        border: 1px solid #F8D25D;
+    }
+    </style>
+     <div class="page-wrapper">
+        <!-- Page-body start -->
+        <div class="page-body">
+
+            <!-- Inverse table card end -->
+            <!-- Hover table card start -->
+            <div class="card" style="min-height: 500px">
+                <div class="card-header">
+                    <h5>我的图书清单</h5>
+                    <span>共{{ book_list|length }}本图书</span>
+                    <div class="card-header-right">
+                        <ul class="list-unstyled card-option">
+                            <li><i class="fa fa fa-wrench open-card-option"></i></li>
+                            <li><i class="fa fa-window-maximize full-card"></i></li>
+                            <li><i class="fa fa-minus minimize-card"></i></li>
+                            <li><i class="fa fa-refresh reload-card"></i></li>
+                            <li><i class="fa fa-trash close-card"></i></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-block table-border-style" style="min-height: 400px">
+                    <div class="table-responsive" style="min-height: 300px">
+
+                        <table class="table table-hover" style="text-align: center;align-content: center;align-items: center;vertical-align:middle;">
+                            <thead>
+                                <tr>
+                                    <th><span>序号</span></th>
+                                    <th>ISBN</th>
+                                    <th>书名</th>
+                                    <th>作者</th>
+                                    <th>出版社</th>
+                                    <th>图书号</th>
+{#                                    <th> &nbsp;</th>#}
+                                    <th> &nbsp;</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                            <form class="form-material"  method="POST"  action="" >
+                            {% csrf_token %}
+                            {% for iter in book_list %}
+                                <tr>
+                                    <th scope="row">{{ forloop.counter }}</th>
+                                    <td>{{ iter.isbn.id }}</td>
+                                    <td>{{ iter.isbn.title }}</td>
+                                    <td>{{ iter.isbn.author }}</td>
+                                    <td>{{ iter.isbn.publisher }}</td>
+{#                                    <td>#}
+{#                                         <div class="dropdown-primary dropdown open" >#}
+{#                                            <button class="btn btn-primary btn-sm dropdown-toggle waves-effect waves-light " type="button" id="dropdown-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">操作</button>#}
+{#                                            <div class="dropdown-menu" aria-labelledby="dropdown-2" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">#}
+{#                                                <a class="dropdown-item waves-light waves-effect" href="{% url 'bookDetail' %}">查看详情</a>#}
+{#                                                <div class="dropdown-divider"></div>#}
+{#                                                <a class="dropdown-item waves-light waves-effect " href="{% url 'goCheckOut' iter.id %}">归还</a>#}
+{#                                                <div class="dropdown-divider"></div>#}
+{#                                                 <a class="dropdown-item waves-light waves-effect" href="{% url 'collections' iter.book.isbn.id %}">收藏</a>#}
+{##}
+{#                                            </div>#}
+{#                                         </div>#}
+{#                                    </td>#}
+                                    <td>
+{#                                        <input type="checkbox" class="form-control" name="{{ iter.book.id }}" value="{{ iter.book.id }}">#}
+                                        <input type="checkbox" value="{{ iter.isbn.id }}"  name="list"  >
+
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            <div class="form-group form-default form-label">
+                                <input type="submit" value="一键借书" class="btn btn-md btn-primary">
+                            </div>
+                            </form>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- Page-body end -->
+    </div>
+{% endblock %}

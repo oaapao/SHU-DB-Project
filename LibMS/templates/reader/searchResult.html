@@ -1,0 +1,121 @@
+{% extends 'basic_page.html' %}
+
+{% block title %}搜索结果{% endblock %}
+{% block header %}
+     <script>
+     document.getElementById('b1').classList.add('active');
+     </script>
+    <div class="row align-items-center">
+        <div class="col-md-8">
+            <div class="page-header-title">
+                <h5 class="m-b-10">搜索图书</h5>
+                <p class="m-b-0">检索你想要的图书</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{% url 'index' %}"> <i class="fa fa-home"></i> </a>
+                </li>
+                <li class="breadcrumb-item"><a href="{% url 'index' %}">搜索</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    {% endblock %}
+
+{% block content %}
+     {% if message %}
+         <div class="alert alert-danger" >
+             <div class="text" style=" text-align:center;">
+                 {{ message }}
+             </div>
+         </div>
+     {% endif %}
+
+
+     <div class="page-wrapper">
+        <!-- Page-body start -->
+        <div class="page-body">
+
+            <!-- Inverse table card end -->
+            <!-- Hover table card start -->
+            <div class="card" style="min-height: 500px">
+                <div class="card-header">
+                    <h5>{{ search }}的搜索结果...</h5>
+                    <span>共{{ num }}条</span>
+                    <div class="card-header-right">
+                        <ul class="list-unstyled card-option">
+                            <li><i class="fa fa fa-wrench open-card-option"></i></li>
+                            <li><i class="fa fa-window-maximize full-card"></i></li>
+                            <li><i class="fa fa-minus minimize-card"></i></li>
+                            <li><i class="fa fa-refresh reload-card"></i></li>
+                            <li><i class="fa fa-trash close-card"></i></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-block table-border-style" style="min-height: 400px">
+                    <div class="table-responsive" style="min-height: 300px">
+                        <table class="table table-hover" style="text-align: center;align-content: center;align-items: center;vertical-align:middle;">
+                            <thead>
+                                <tr>
+                                    <th><span>序号</span></th>
+                                    <th>ISBN</th>
+                                    <th>书名</th>
+                                    <th>作者</th>
+                                    <th>出版社</th>
+                                    <th>可借数量</th>
+                                    <th> &nbsp;</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for iter in book_list %}
+                                <tr>
+                                    <th scope="row">{{ forloop.counter }}</th>
+                                    <td>{{ iter.id }}</td>
+                                    <td>{{ iter.title }}</td>
+                                    <td>{{ iter.author }}</td>
+                                    <td>{{ iter.publisher }}</td>
+                                    <td>{{ iter.get_rest_num }}</td>
+                                    <td>
+                                         <div class="dropdown-primary dropdown open" >
+                                            <button class="btn btn-primary btn-sm dropdown-toggle waves-effect waves-light " type="button" id="dropdown-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">操作</button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdown-2" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+                                                <a class="dropdown-item waves-light waves-effect" href="{% url 'bookDetail' %}">查看详情</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item waves-light waves-effect " href="{% url 'goCheckIn' iter.id %}">借阅</a>
+                                                <a class="dropdown-item waves-light waves-effect" href="{% url 'goReserve' iter.id %}">预约</a>
+                                                <div class="dropdown-divider"></div>
+                                                 <a class="dropdown-item waves-light waves-effect" href="#">收藏</a>
+
+                                            </div>
+                                         </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    <div class="pagination">
+                            <span class="step-links">
+                                {% if book_list.has_previous %}
+                                    <a href="{% url 'search' %}?page=1">&laquo; 首页</a>
+                                    <a href="{% url 'search' %}?page={{ book_list.previous_page_number }}">上一页</a>
+                                {% endif %}
+                                <span class="current">
+                                    当前第 {{ book_list.number }} 页，共 {{ book_list.paginator.num_pages }}页
+                                </span>
+                                {% if book_list.has_next %}
+                                    <a href="{% url 'search' %}?page={{ book_list.next_page_number }}">下一页</a>
+                                    <a href="{% url 'search' %}?page={{ book_list.paginator.num_pages }}">最后一页 &raquo;</a>
+                                {% endif %}
+                            </span>
+                    </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <!-- Page-body end -->
+    </div>
+{% endblock %}

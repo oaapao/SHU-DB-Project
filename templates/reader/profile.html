@@ -1,0 +1,137 @@
+{% extends 'basic_page.html' %}
+
+{% block title %}个人信息{% endblock %}
+{% block header %}
+
+
+    <div class="row align-items-center">
+        <div class="col-md-8">
+            <div class="page-header-title">
+                <h5 class="m-b-10">个人信息页</h5>
+                <p class="m-b-0">查看个人信息</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{% url 'index' %}"> <i class="fa fa-home"></i> </a>
+                </li>
+                <li class="breadcrumb-item"><a href="{% url 'borrowList' %}">我的信息</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    {% endblock %}
+
+{% block content %}
+
+
+     <div class="page-wrapper">
+        <!-- Page body start -->
+                                    <div class="page-body">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h5>个人信息页</h5>
+                                                        <!--<span>Add class of <code>.form-control</code> with <code>&lt;input&gt;</code> tag</span>-->
+                                                    </div>
+                                                    <div class="card-block">
+                                                        <form class="form-material">
+                                                            <div class="form-group form-default form-static-label">
+                                                                <input type="text" name="footer-email" class="form-control" value={{ user.name }} readonly>
+                                                                <span class="form-bar"></span>
+                                                                <label class="float-label">用户名</label>
+                                                            </div>
+                                                            <div class="form-group form-default form-static-label">
+                                                                <input type="text" name="footer-email" class="form-control" value={{ user.id_id }} readonly>
+                                                                <span class="form-bar"></span>
+                                                                <label class="float-label">用户ID</label>
+                                                            </div>
+                                                            <div class="form-group form-default form-static-label">
+                                                                <input type="text" name="footer-email" class="form-control" value={{ user.phone }} readonly>
+                                                                <span class="form-bar"></span>
+                                                                <label class="float-label">手机号码</label>
+                                                            </div>
+                                                            <div class="form-group form-default form-static-label">
+                                                                <input type="text" name="footer-email" class="form-control" value={{ user.email }} readonly>
+                                                                <span class="form-bar"></span>
+                                                                <label class="float-label">电子邮件</label>
+                                                            </div>
+                                                            <div class="form-group form-default form-static-label">
+                                                                <input type="text" name="footer-email" class="form-control" value={{ user.get_borrow_num }} readonly>
+                                                                <span class="form-bar"></span>
+                                                                <label class="float-label">已借书目</label>
+                                                            </div>
+                                                            <div class="form-group form-default form-static-label">
+                                                                <input type="text" name="footer-email" class="form-control" value={{ user.limit }} readonly>
+                                                                <span class="form-bar"></span>
+                                                                <label class="float-label">借阅上限</label>
+                                                            </div>
+                                                            <div class="form-group form-default form-static-label">
+                                                                <input type="text" name="footer-email" class="form-control" value="VIP_1" readonly>
+                                                                <span class="form-bar"></span>
+                                                                <label class="float-label">VIP等级</label>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h5>个人信息</h5>
+                                                        <!--<span>Add class of <code>.form-control</code> with <code>&lt;input&gt;</code> tag</span>-->
+                                                    </div>
+                                                    <div class="card-block">
+                                                        <form class="form-material"  method="post"  action="{% url 'profile' %}" enctype="multipart/form-data">
+                                                             {% csrf_token %}
+                                                            <div class="form-group form-default">
+                                                                <input type="text" name="name" class="form-control" >
+                                                                <span class="form-bar"></span>
+                                                                <label class="float-label">用户名</label>
+                                                            </div>
+                                                            <div class="form-group form-default">
+                                                                <input type="text" name="phone" class="form-control" >
+                                                                <span class="form-bar"></span>
+                                                                <label class="float-label">手机号码</label>
+                                                            </div>
+                                                            <div class="form-group form-default">
+                                                                <input type="text" name="email" class="form-control">
+                                                                <span class="form-bar"></span>
+                                                                <label class="float-label">电子邮件</label>
+                                                            </div>
+
+                                                            <div class="form-group form-default">
+                                                                <input type="password" name="pwd1" class="form-control" >
+                                                                <span class="form-bar"></span>
+                                                                <label class="float-label">输入密码</label>
+                                                            </div>
+                                                            <div class="form-group form-default">
+                                                                <input type="password" name="pwd2" class="form-control" >
+                                                                <span class="form-bar"></span>
+                                                                <label class="float-label">确认密码</label>
+                                                            </div>
+
+{#                                                            <div class="form-group form-default">#}
+{#                                                                <input type="file" name="footer-email" class="form-control" >#}
+{#                                                            </div>#}
+                                                            <div class="form-group form-default">
+                                                                <input type="file" class="form-control" name="inputfile">
+                                                            </div>
+                                                            <div class="form-group form-default form-static-label">
+
+                                                                <input type="submit" value="修改信息" class="btn btn-md btn-primary">
+                                                            </div>
+                                                        </form>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                    <!-- Page body end -->
+    </div>
+{% endblock %}
